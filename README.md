@@ -1,30 +1,30 @@
 # COP3530Final
 Portfolio Optimization
 
-File Structure
+File Structure <br>
 
-/Portfolio Optimization
-|- Frontend/
-|-- base.html
-|-- interface.html
+/Portfolio Optimization <br>
+|- Frontend/ <br>
+|-- base.html <br>
+|-- interface.html <br>
 
-|- static/
-|-- css/
-|--- base.css
-|--- interface.css
-|-- javascript/
-|--- index.js
+|- static/ <br>
+|-- css/ <br>
+|--- base.css <br>
+|--- interface.css <br>
+|-- javascript/ <br>
+|--- index.js <br>
 
-|- Utility/
-|-- graph.py
-|-- linked_list.py
-|-- maxheap.py
-|-- portfolio.py
-|-- SandP.py
-|-- stock.py
+|- Utility/ <br>
+|-- graph.py <br>
+|-- linked_list.py <br>
+|-- maxheap.py <br>
+|-- portfolio.py <br>
+|-- SandP.py <br>
+|-- stock.py <br>
 
-|- interface.py
-|- webscraper.py
+|- interface.py <br>
+|- webscraper.py <br>
 
 
 To run the project, run the interface.py file. Some dependencies include but are not limited to numpy, Flask, matplotlib, selenium and pandas.
