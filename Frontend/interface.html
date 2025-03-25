@@ -1,0 +1,228 @@
+<!--commented-->
+{% extends 'base.html' %}
+
+<!--Done-->
+{% block head %}
+    <title>Portfolio Optimization and Financial Education</title>
+    
+    <link rel = 'stylesheet' type="text/css" href="{{ url_for('static', filename='css/interface.css')}}">
+    <script src="{{ url_for('static', filename='javascript/index.js')}}"></script>
+
+{% endblock %}
+
+{% block header %} {% endblock %}
+
+{% block body %}
+    <!--Main tag-->
+    <main>  
+        <!--Container for left, middle and right divs-->
+        <div id = "container">
+        <div id = "left_side">
+            <form action = "/" method = 'POST'> 
+                <fieldset>
+                    <div id = "div_of_stocks">
+
+                        <!-- Creates stocks that were previously input, is the same as in the js file but flask plays weight with js-->
+                        {% if zipped_data|length != 0 %}
+                            {% for code, value in zipped_data %}
+                                <!-- Add Creating Stock Div in here-->
+                            <script>
+                                var adding_div = document.getElementById("div_of_stocks");
+                                var create_div = document.createElement("div");
+                                create_div.classList.add("stocks");
+                                var stock_code_input = document.createElement("input");
+                                var stock_amount_input = document.createElement("input");
+                                var break1 = document.createElement("br");
+                                var break2 = document.createElement("br");
+                            
+                                stock_code_input.classList.add("stock_codes");
+                                stock_code_input.id = "stock_code";
+                                stock_code_input.name = "stock_codes";
+                                stock_code_input.maxLength = 6;
+                                stock_code_input.minLength = 1;
+                                stock_amount_input.classList.add("stock_amounts");
+                                stock_amount_input.name = "stock_amounts";
+                                stock_amount_input.id = "stock_amount";
+                                
+                                stock_code_input.value = "{{ code }}";
+                                stock_amount_input.value = "{{ value }}";
+                                
+                            
+                                stock_amount_input.setAttribute('type', 'number');
+                            
+                                var stock_txt = document.createTextNode("Stock Code: ");
+                                var number_txt = document.createTextNode("Shares: ");
+                            
+                                var deletetion = document.createElement("input");
+                                deletetion.type = "button";
+                                deletetion.value = "Delete Stock";
+                                deletetion.onclick = function(){
+                                    create_div.style.display = "none";
+                                    create_div.remove();
+                                };
+                            
+                                
+                                create_div.style.backgroundColor = "#FFFFFF";
+                                create_div.style.border = "1px solid black";
+                                create_div.style.fontSize = "12px";
+                                create_div.appendChild(stock_txt);
+                                create_div.appendChild(stock_code_input);
+                                create_div.appendChild(break1);
+                                create_div.appendChild(number_txt);
+                                create_div.appendChild(stock_amount_input);
+                                create_div.appendChild(break2);
+                                create_div.appendChild(deletetion);
+                                
+                                adding_div.appendChild(create_div);
+                            </script>
+                            {% endfor %}
+                        {% endif %}
+                        
+                    </div>
+                    
+                    <!--Inputs for types of risk, chosen risk to optimize to, and the type of optimization-->
+                    <p style="padding: 1px; font-size: 12px">Risk Level Selling: </p>
+                    <input name = "risk_level" type="number" min = "1" value = "1" max = "4"/>
+    
+                    <p style="padding: 1px; font-size: 12px">Chosen Risk to Optimize To (%)</p>
+                    <input name = "optimization_risk" type="number" min = "0" value = "0" max = "100"/>
+
+                    <p style="padding: 1px; font-size: 12px">Minimum Variance = 0/MVO = 1/SharpeRatioMax = 2</p>
+                    <input name = "type_optimization" type="number" min = "0" value = "2" max = "2"/>
+
+                    
+                    <!--Potential stocks-->
+                    <div id = "potential_stocks">
+
+                    </div>
+                    <!-- Create new stock input-->
+                    <input type="button" value = "Add New Stock" onclick = "create_stock_input()"/>
+                    <br>
+                    <input type = "submit" value = "Optimize" id = "Optimize_Button"/>
+
+                    <!--Colors stocks red if they arent valid stocks and green if they are valid stocks-->
+                    {% if failed_stocks|length > 0  or successful_stocks|length > 0%}
+                        <script>
+                            const stock_arr = document.getElementsByClassName("stocks");
+                            const failed_stocks = "{{ failed_stocks }}";
+                            const successful_stocks = "{{ successful_stocks }}";
+                            
+                            for (let i = 0; i < stock_arr.length; i++){
+                                var string = stock_arr[i].querySelector("#stock_code");
+                                if (string){
+                                    if (failed_stocks.includes(string.value) == true){
+                                        stock_arr[i].style.backgroundColor = "#f44336";
+                                    }
+                                    
+                                    else if (successful_stocks.includes(string.value) == true){
+                                        stock_arr[i].style.backgroundColor = "#4caf50";
+                                    } 
+                                }
+                                
+                            }
+                            
+                        </script>
+                    {% endif %}
+                </fieldset>
+                
+                <!--Potential stocks div-->
+                <div>
+                    <p style="font-size: 20px; font-weight: bold">Potential Stocks to Add to Portfolio</p>
+                    {% if potential_stocks|length > 0 %}
+                        {% for stock in potential_stocks %}
+                            <!-- Add Create Div of Potential Stocks of Name/Current Price-->
+                            {{ stock | safe }}        
+
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </form>
+
+            
+        </div>
+
+        <!--Paragraph about why optimizing portfolios is important-->
+        <div id = "middle">
+            <p id = "information_paragraph">
+                <!--Intro Paragraph-->
+                Portfolio Optimization is an important part of day trading for many reasons. Day Trading relies on capitalizing on 
+                short term market movements and inefficiencies to create profit. This however has many risks such as holding a 
+                position too long, creating unnecessary risk, racking up costs and fees, and losing potential profit.
+                <br>
+                <br>
+                <!--Holding Position too Long-->
+                Holding a position too long is one risk of day trading which can happen in a flash, especially when trading multiple
+                stocks. This risk can be mititgated several ways. One common way of lowering the risk is implemented automated selling
+                at certain prices. The lower bound is called a stop loss which is aptly named as it minimizes the possible loss.
+                Optimization also plays a role here as it minimizes the risk of the total portfolio. This wont affect individual
+                stock volatility but it will ensure the best chance of success for the overall portfolio.
+                <br>
+                <br>
+                <!--Unnecessary Risk-->
+                Unnecessary Risk is a big part of day trading because of the inherent unpredictability in the market. Overexposure to 
+                one stock which is where most unnecessary risk comes from is mititgated allowing portfolios to succeed over time rather
+                than relying on trends in the market.
+                <br>
+                <br>
+                <!--Fees-->
+                Racking up fees becomes a very big issue when dealing with HFT(High Frequency Trading) or even regular day trading. No 
+                one wants to lose profits or even become net negative because of their broker fees. This is another reason why Portfolio
+                Optimization is important. If a portfolio is optimized. minimal trades for less risk and overall gain will be executed.
+                Therefore, fees will lower and the overall net profit will increase.
+                <br>
+                <br>
+                <!--Losing Profit-->
+                A final reason why Portfolio Optimization is important is that losing potential profits is very easy. If a portfolio
+                is unbalanced, money will be allocated arbitrarily according to an investors own principles. This not only increases
+                risk but it could result in lower profits. This is because the portfolio may work against itself such as buying all in 
+                one sector, clashing stocks, or buying competitors that have high inverse covariance. Portfolio Optimization decreases
+                that risk and allows the Portfolio the best chance to succeed in the market.
+
+            </p>
+        </div>
+
+        <div id = "right">
+            <!--How to optimize your portfolio-->
+            <div id = "optimization_instructions">
+                {% for instruction in sell_instructions %}
+                    {{ instruction }}
+                    <br>
+                {% endfor %}
+            </div>
+
+            <!--Graphs of monte carlo simulations before, after, the allocations of the portfolios-->
+            <div id = "graphs">
+                <div style="border: 1px solid black" id = "before_graphs">
+                    <p>Before Balancing</p>
+                    {% for value in before_arr %}
+                        {{ value | safe}}
+                        <br>
+                    {% endfor %}
+                    {% for plot in plots_list %}
+                        <div> {{ plot | safe }}</div>
+                        <br>
+                    {% endfor %}
+                </div>
+                <div style="border: 1px solid black" id = "after_graphs">
+                    <p>After Balancing</p>
+                    {% for value in after_arr %}
+                        {{ value | safe}}
+                        <br>
+                    {% endfor %}
+                    {% for plot in plots_list_after %}
+                        <div> {{ plot | safe }}</div>
+                        <br>
+                    {% endfor %}
+                </div>
+            </div>
+            
+
+        </div>
+
+        
+        </div>
+        
+    </main>
+{% endblock %}
+
+</html>

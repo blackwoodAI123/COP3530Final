@@ -1,0 +1,58 @@
+/*commented*/
+/*Stocks class*/
+.stocks{
+    font-size: 16px;
+    min-height: 25px;
+    min-width: 100px;
+    max-width: 220px;
+}
+
+/*container for flex-box*/
+#container{
+    display: flex;
+}
+
+/*Left side div*/
+#left_side{
+    max-width: 220px;
+    min-width: 220px;
+    margin-right: 1%;
+    margin-left: 1%;
+    height: 100%;
+    min-height: 500px;
+}
+/*middle div*/
+#middle{
+    margin-left: 1%;
+    margin-right: 1%;
+    min-height: 500px;
+    max-width: 350px;
+    min-width: 350px;
+}
+
+/*Info paragraph styling*/
+#information_paragraph{
+    font-size: 16px;
+}
+
+/*Display of the graphs*/
+#graphs{
+    display: flex;
+}
+
+/*Failed attempt to style to select tab*/
+.select option[value="1"] {
+    background-color: #4caf50;
+}
+  
+.select option[value="2"] {
+    background-color: #eed202;
+}
+
+.select option[value="3"] {
+    background-color: #ff7f7f;
+}
+
+.select option[value="4"] {
+    background-color: #8b0000;
+}
