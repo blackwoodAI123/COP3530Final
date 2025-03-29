@@ -448,28 +448,34 @@ class Portfolio:
                 sell_stock_arr.append([name_arr[itr], shares_to_delta * self.portfolio[name_arr[itr]].get_current_price(), self.portfolio[name_arr[itr]]])
         
         """
-        Uses Graph/Heap to Order Sells/Buys
-        buyGraph = Graph(buy_stock_arr)
-        sellGraph = Graph(sell_stock_arr)
+        Create Sell instructions with max heap
+        
         buyHeap = MaxHeap(buy_stock_arr)
         sellHeap = MaxHeap(sell_stock_arr)
-
-        arr_graph_buy = buyGraph.traverse()
-        arr_graph_sell = sellGraph.traverse()
         arr_heap_buy = buyHeap.traverse()
         arr_heap_sell = sellHeap.traverse()
         sell_dict = sellHeap.get_delta()
         buy_dict = buyHeap.get_delta()
-        
-        for i in arr_graph_sell:
-            instructions.append(f"Sell {round(sell_dict[i] / self.portfolio[i].calculate_price_threshold("buy")[risk_level_selling], 3)} shares of {i} @ {self.portfolio[i].calculate_price_threshold("buy")[risk_level_selling]}")
-        for i in arr_graph_buy:
-            instructions.append(f"Buy {round(buy_dict[i] / self.portfolio[i].calculate_price_threshold("buy")[risk_level_selling], 3)} shares of {i} @ {self.portfolio[i].calculate_price_threshold("buy")[risk_level_selling]}")
-        
         for i in arr_heap_buy:
             instructions.append(f"Buy {round(buy_dict[i[0]] / self.portfolio[i[0]].calculate_price_threshold("buy")[risk_level_selling], 3)} shares of {i[0]} @ {self.portfolio[i[0]].calculate_price_threshold("buy")[risk_level_selling]}")
         for i in arr_heap_sell:
             instructions.append(f"Sell {round(sell_dict[i[0]] / self.portfolio[i[0]].calculate_price_threshold("buy")[risk_level_selling], 3)} shares of {i[0]} @ {self.portfolio[i[0]].calculate_price_threshold("buy")[risk_level_selling]}")
+        
+        """
+
+        """
+        Create Sell instructions with Graph
+        buyGraph = Graph(buy_stock_arr)
+        sellGraph = Graph(sell_stock_arr)
+        arr_graph_buy = buyGraph.traverse()
+        arr_graph_sell = sellGraph.traverse()
+        sell_dict = buyGraph.get_delta()
+        buy_dict = buyGraph.get_delta()
+    
+        for i in arr_graph_sell:
+            instructions.append(f"Sell {round(sell_dict[i] / self.portfolio[i].calculate_price_threshold("buy")[risk_level_selling], 3)} shares of {i} @ {self.portfolio[i].calculate_price_threshold("buy")[risk_level_selling]}")
+        for i in arr_graph_buy:
+            instructions.append(f"Buy {round(buy_dict[i] / self.portfolio[i].calculate_price_threshold("buy")[risk_level_selling], 3)} shares of {i} @ {self.portfolio[i].calculate_price_threshold("buy")[risk_level_selling]}")
         """
 
         #Sells stocks
