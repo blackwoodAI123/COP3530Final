@@ -1,5 +1,7 @@
 # COP3530Final
 Portfolio Optimization
+Disclaimer: This is not accurate for small cap stocks!!! It will give not only very wrong, but very invalid advice. 
+Also, please don't actually use these values to trade/optimize your own portfolio without using common sense and reason. :D
 
 File Structure <br>
 
