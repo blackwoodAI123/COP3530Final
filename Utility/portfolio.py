@@ -243,6 +243,7 @@ class Portfolio:
     #Balances mvo/tangency portfolio
     def balance_mvo(self, risk_level_selling, *args):
         #Gets the names/weights optimal
+        risk_level_selling-=1
         if len(self.stock_array) == 0:
             return []
         instructions = []
@@ -395,6 +396,7 @@ class Portfolio:
     
     #Balances for Minimum Variance
     def balance_minvar(self, risk_level_selling):
+        risk_level_selling-=1
         #Gets the weights
         if len(self.stock_array) == 0:
             return []
