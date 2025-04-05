@@ -471,7 +471,7 @@ class Portfolio:
         sellGraph = Graph(sell_stock_arr)
         arr_graph_buy = buyGraph.traverse()
         arr_graph_sell = sellGraph.traverse()
-        sell_dict = buyGraph.get_delta()
+        sell_dict = sellGraph.get_delta()
         buy_dict = buyGraph.get_delta()
     
         for i in arr_graph_sell:
