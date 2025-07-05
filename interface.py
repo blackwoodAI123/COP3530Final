@@ -93,6 +93,8 @@ def index():
             if type_optimization == 0:
                 sell_instructions = user_portfolio.balance_minvar(risk_level)
             elif type_optimization == 1 and optimization_risk != 0:
+                return render_template("interface.html", failed_stocks=[], successful_stocks=[], sell_instructions=[], 
+                                   plots_list=[], plots_list_after = [], potential_stocks=[], before_arr=[], after_arr=[], zipped_data=[])
                 sell_instructions = user_portfolio.balance_mvo(risk_level, optimization_risk)
             else:
                 sell_instructions = user_portfolio.balance_mvo(risk_level)
