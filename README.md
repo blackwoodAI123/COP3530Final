@@ -1,6 +1,6 @@
 # COP3530Final
 Portfolio Optimization
-Disclaimer: This optimization algorithm considers daily changes and only gets data from the last 7 days making it very succeptable to changes in the market. To make this algorithm more accurate for higher time intervals, you can extend the amount of data downloaded or change the timeframe of simulations to months/years. Mean Variance Optimization is currently not finished/impossible to do with linear programming. 
+Disclaimer: This optimization algorithm considers daily changes and only gets data from the last 7 days making it very succeptable to changes in the market. To make this algorithm more accurate for higher time intervals, you can extend the amount of data downloaded or change the timeframe of simulations to months/years.
 Also, please don't actually use these values to trade/optimize your own portfolio without using common sense and reason. :D <br>
 
 File Structure <br>
